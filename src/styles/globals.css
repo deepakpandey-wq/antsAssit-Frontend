@@ -1,0 +1,178 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+
+/*
+ * Design tokens — single source of truth for every screen.
+ * Values sampled from design/Interview Assessment SaaS Dashboard UI.png.
+ * Never hard-code colors, radii or shadows in components; use these tokens.
+ */
+@theme {
+  --font-sans:
+    'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Surfaces (warm cream) */
+  --color-canvas: #f8f6f2; /* app background */
+  --color-sidebar: #f6f3ee;
+  --color-surface: #ffffff; /* cards */
+  --color-surface-muted: #faf9f6; /* table header, subtle wells */
+  --color-surface-sunken: #f2f1ee; /* search field, tracks */
+
+  /* Lines */
+  --color-line: #ece9e4;
+  --color-line-strong: #dedad3;
+
+  /* Text */
+  --color-ink: #15171e; /* headings */
+  --color-ink-body: #3a3f4b;
+  --color-ink-muted: #6b7080;
+  --color-ink-subtle: #9a9fab;
+
+  /* Primary — red-orange action color */
+  --color-primary-50: #fdf3ee;
+  --color-primary-100: #fce9e1;
+  --color-primary-200: #f8d2c2;
+  --color-primary-300: #f2ae93;
+  --color-primary-400: #e8794f;
+  --color-primary-500: #d4521f;
+  --color-primary-600: #bf3d10;
+  --color-primary-700: #a3330d;
+  --color-primary-800: #842a0d;
+
+  /* Navigation active pill (warm sand) */
+  --color-nav-active: #f0e4d7;
+  --color-nav-active-hover: #e8d8c6;
+
+  /* Dark (secondary CTA, avatar, terminal) */
+  --color-night: #23252b;
+  --color-night-hover: #33363e;
+  --color-terminal: #1d2328;
+  --color-terminal-text: #d7dde3;
+  --color-terminal-muted: #7d8a96;
+  --color-terminal-success: #4ade80;
+
+  /* Semantic */
+  --color-success-50: #e5f6ec;
+  --color-success-500: #22a35f;
+  --color-success-700: #17804a;
+  --color-info-50: #e8effe;
+  --color-info-500: #3b6fe8;
+  --color-info-700: #2a55c4;
+  --color-warning-50: #fef3e1;
+  --color-warning-500: #ea7a1a;
+  --color-warning-700: #c25e0c;
+  --color-danger-50: #fdecec;
+  --color-danger-500: #e5484d;
+  --color-danger-700: #c22f35;
+  --color-neutral-50: #eff0f2;
+  --color-neutral-500: #707684;
+  --color-teal-50: #ddf5f2;
+  --color-teal-500: #0f9fb4;
+  --color-purple-50: #f2eafe;
+  --color-purple-500: #8b4fe3;
+
+  /* Radius */
+  --radius-control: 0.625rem; /* 10px — buttons, inputs */
+  --radius-card: 0.875rem; /* 14px — cards */
+  --radius-tile: 0.75rem; /* 12px — icon tiles, selectable cards */
+
+  /* Shadows (warm, subtle) */
+  --shadow-card: 0 1px 2px rgb(41 32 24 / 0.04), 0 2px 10px -4px rgb(41 32 24 / 0.06);
+  --shadow-raised: 0 4px 16px -4px rgb(41 32 24 / 0.1), 0 1px 3px rgb(41 32 24 / 0.05);
+  --shadow-popover: 0 12px 32px -8px rgb(41 32 24 / 0.18), 0 2px 6px rgb(41 32 24 / 0.06);
+  --shadow-primary: 0 1px 2px rgb(163 51 13 / 0.25), 0 4px 10px -4px rgb(191 61 16 / 0.45);
+
+  /* Typography scale */
+  --text-page-title: 1.625rem; /* 26px */
+  --text-page-title--line-height: 2.125rem;
+  --text-page-title--letter-spacing: -0.02em;
+  --text-page-title--font-weight: 700;
+  --text-section-title: 1.0625rem; /* 17px — step card headings */
+  --text-section-title--line-height: 1.5rem;
+  --text-section-title--font-weight: 600;
+  --text-card-title: 0.9375rem; /* 15px */
+  --text-card-title--line-height: 1.375rem;
+  --text-card-title--font-weight: 600;
+  --text-stat: 1.75rem; /* 28px */
+  --text-stat--line-height: 2rem;
+  --text-stat--font-weight: 700;
+
+  /* Layout */
+  --spacing-sidebar: 16rem; /* 256px */
+  --spacing-header: 4.25rem; /* 68px */
+  --spacing-content: 82rem; /* 1312px max content width */
+
+  /* Motion */
+  --animate-fade-in: fade-in 160ms ease-out;
+  --animate-pop-in: pop-in 160ms cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  --animate-slide-in: slide-in 220ms ease-out;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes pop-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes slide-in {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: none;
+    }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-sm text-ink-body;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-ink;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary-400;
+  }
+
+  ::selection {
+    @apply bg-primary-100 text-primary-800;
+  }
+
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']) {
+    cursor: pointer;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 1ms !important;
+      transition-duration: 1ms !important;
+    }
+  }
+}
